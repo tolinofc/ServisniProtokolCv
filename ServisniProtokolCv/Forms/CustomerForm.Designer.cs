@@ -156,6 +156,8 @@
             Controls.Add(label2);
             Controls.Add(textBoxName);
             Controls.Add(label1);
+            MaximumSize = new Size(385, 218);
+            MinimumSize = new Size(385, 218);
             Name = "CustomerForm";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Zákazník";

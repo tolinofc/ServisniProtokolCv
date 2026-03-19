@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,6 @@ namespace ServisniProtokolCv.Models
         public DateTime MeasureDate = DateTime.Now;
         public Customer Customer = new Customer();
         public Device Device = new Device();
-        public List<Measure> MeasureList { get; set; }
+        public BindingList<Measure> MeasureList = new BindingList<Measure>();
     }
 }

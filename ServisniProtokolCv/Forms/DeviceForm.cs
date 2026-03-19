@@ -11,27 +11,30 @@ using System.Windows.Forms;
 
 namespace ServisniProtokolCv.Forms
 {
-    public partial class BasicInfoForm : Form
+    public partial class DeviceForm : Form
     {
-        public Protocol protocol;
-        public BasicInfoForm(Protocol protocol)
+        public Device device;
+        public DeviceForm(Device device)
         {
             InitializeComponent();
-            this.protocol = protocol;
+            this.device = device;
 
-            this.textBoxProtocolNumber.Text = protocol.ProtocolNumber;
-            this.dateTimePickerMeasureDate.Value = protocol.MeasureDate;
+            this.textBoxManufacturer.Text = device.Manufacturer;
+            this.textBoxModel.Text = device.Model;
+            this.textBoxSerialNumber.Text = device.SerialNumber;
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
             if (this.ValidateChildren())
             {
-                this.protocol.ProtocolNumber = textBoxProtocolNumber.Text;
-                this.protocol.MeasureDate = dateTimePickerMeasureDate.Value;
-                this.DialogResult = DialogResult.OK;
-            }
+                this.device.Manufacturer = this.textBoxManufacturer.Text;
+                this.device.Model = this.textBoxModel.Text;
+                this.device.SerialNumber = this.textBoxSerialNumber.Text;
 
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -40,12 +43,14 @@ namespace ServisniProtokolCv.Forms
             this.Close();
         }
 
-        private void textBoxProtocolNumber_Validating(object sender, CancelEventArgs e)
+        private void textBox_Validating(object sender, CancelEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(this.textBoxProtocolNumber.Text))
+            TextBox textBox = sender as TextBox;
+
+            if (String.IsNullOrWhiteSpace(textBox.Text))
             {
                 e.Cancel = true;
-                this.errorProvider1.SetError(this.textBoxProtocolNumber, "Pole je povinné");
+                this.errorProvider1.SetError(textBox, "Pole je povinné.");
             }
         }
 

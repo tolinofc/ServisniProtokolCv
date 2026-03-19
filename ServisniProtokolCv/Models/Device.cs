@@ -8,7 +8,7 @@ namespace ServisniProtokolCv.Models
 {
     public class Device
     {
-        public string Creator { get; set; }
+        public string Manufacturer { get; set; }
         public string Model { get; set; }
         public string SerialNumber { get; set; }
     }

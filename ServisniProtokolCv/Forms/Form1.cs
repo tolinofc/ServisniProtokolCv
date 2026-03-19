@@ -1,14 +1,18 @@
 using ServisniProtokolCv.Forms;
 using ServisniProtokolCv.Models;
+using System.ComponentModel;
 
 namespace ServisniProtokolCv
 {
     public partial class ProtocolForm : Form
     {
         Protocol protocol = new Protocol();
+        BindingList<Measure> measures;
         public ProtocolForm()
         {
             InitializeComponent();
+            this.measures = protocol.MeasureList;
+            this.dataGridViewMeasure.DataSource = protocol.MeasureList;
         }
 
         private void editBasicInfoBtn_Click(object sender, EventArgs e)
@@ -34,6 +38,28 @@ namespace ServisniProtokolCv
                 this.labelAddressValue.Text = protocol.Customer.Address;
                 this.labelPostalCodeValue.Text = protocol.Customer.PostalCode;
                 this.labelIcValue.Text = protocol.Customer.ICO;
+            }
+        }
+
+        private void buttonDeviceEdit_Click(object sender, EventArgs e)
+        {
+            DeviceForm form = new DeviceForm(protocol.Device);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                this.protocol.Device = form.device;
+
+                this.labelManufacturer.Text = protocol.Device.Manufacturer;
+                this.labelModel.Text = protocol.Device.Model;
+                this.labelSerialNumber.Text = protocol.Device.SerialNumber;
+            }
+        }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            MeasureForm form = new MeasureForm();
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                this.measures.Add(form.measure);
             }
         }
     }

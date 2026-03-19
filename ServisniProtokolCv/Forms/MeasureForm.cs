@@ -11,31 +11,27 @@ using System.Windows.Forms;
 
 namespace ServisniProtokolCv.Forms
 {
-    public partial class CustomerForm : Form
+    public partial class MeasureForm : Form
     {
-        public Customer customer;
-        public CustomerForm(Customer customer)
+        public Measure measure;
+        public MeasureForm()
         {
             InitializeComponent();
-            this.customer = customer;
-
-            this.textBoxName.Text = customer.Name;
-            this.textBoxAddress.Text = customer.Address;
-            this.textBoxPostalCode.Text = customer.PostalCode;
-            this.textBoxIC.Text = customer.ICO;
+            this.measure = new Measure();
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
             if (this.ValidateChildren())
             {
-                this.customer.Name = textBoxName.Text;
-                this.customer.Address = textBoxAddress.Text;
-                this.customer.PostalCode = textBoxPostalCode.Text;
-                this.customer.ICO = textBoxIC.Text;
-                this.DialogResult = DialogResult.OK;
-            }
+                this.measure.Parameter = this.textBoxParameter.Text;
+                this.measure.MeasuredValue = Double.Parse(this.textBoxMeasuredValue.Text);
+                this.measure.Unit = this.textBoxUnit.Text;
+                this.measure.IsOptimal = this.checkBoxIsOptimal.Checked;
 
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -50,14 +46,23 @@ namespace ServisniProtokolCv.Forms
             if (string.IsNullOrWhiteSpace(textBox.Text))
             {
                 e.Cancel = true;
-                this.errorProvider1.SetError(textBox, "Pole je povinné");
+                this.errorProvider1.SetError(textBox, "Pole je povinne");
             }
         }
 
-        public void Validated(object sender, EventArgs e)
+        private void Validated(object sender, EventArgs e)
         {
             TextBox textBox = sender as TextBox;
             this.errorProvider1.SetError(textBox, null);
+        }
+
+        private void textBoxMeasuredValue_Validating(object sender, CancelEventArgs e)
+        {
+            if (!Double.TryParse(this.textBoxMeasuredValue.Text, out double value))
+            {
+                e.Cancel = true;
+                this.errorProvider1.SetError(this.textBoxMeasuredValue, "Pole musí být číslo");
+            }
         }
     }
 }
