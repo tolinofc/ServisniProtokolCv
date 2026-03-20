@@ -56,11 +56,31 @@ namespace ServisniProtokolCv
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            MeasureForm form = new MeasureForm();
+            MeasureForm form = new MeasureForm(new Measure());
             if (form.ShowDialog() == DialogResult.OK)
             {
                 this.measures.Add(form.measure);
             }
+        }
+
+        private void buttonEdit_Click(object sender, EventArgs e)
+        {
+            Measure selectedMeasure = this.dataGridViewMeasure.CurrentRow != null ? this.measures[this.dataGridViewMeasure.CurrentRow.Index] : new Measure();
+            MeasureForm form = new MeasureForm(selectedMeasure);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                selectedMeasure = form.measure;
+                this.dataGridViewMeasure.Invalidate();
+            }
+        }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            if (this.dataGridViewMeasure.CurrentRow != null)
+            {
+                this.measures.Remove(this.measures[this.dataGridViewMeasure.CurrentRow.Index]) ;
+            }
+
         }
     }
 }

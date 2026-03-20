@@ -329,6 +329,7 @@
             buttonDelete.TabIndex = 1;
             buttonDelete.Text = "Smazat";
             buttonDelete.UseVisualStyleBackColor = true;
+            buttonDelete.Click += buttonDelete_Click;
             // 
             // buttonEdit
             // 
@@ -338,6 +339,7 @@
             buttonEdit.TabIndex = 1;
             buttonEdit.Text = "Upravit";
             buttonEdit.UseVisualStyleBackColor = true;
+            buttonEdit.Click += buttonEdit_Click;
             // 
             // buttonAdd
             // 
@@ -357,6 +359,7 @@
             dataGridViewMeasure.Location = new Point(6, 22);
             dataGridViewMeasure.Name = "dataGridViewMeasure";
             dataGridViewMeasure.ReadOnly = true;
+            dataGridViewMeasure.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewMeasure.Size = new Size(630, 279);
             dataGridViewMeasure.TabIndex = 0;
             // 

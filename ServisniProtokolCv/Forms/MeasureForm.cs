@@ -14,10 +14,15 @@ namespace ServisniProtokolCv.Forms
     public partial class MeasureForm : Form
     {
         public Measure measure;
-        public MeasureForm()
+        public MeasureForm(Measure measure)
         {
             InitializeComponent();
-            this.measure = new Measure();
+            this.measure = measure;
+
+            this.textBoxParameter.Text = measure.Parameter;
+            this.textBoxMeasuredValue.Text = this.measure.MeasuredValue.ToString();
+            this.textBoxUnit.Text = this.measure.Unit;
+            this.checkBoxIsOptimal.Checked = this.measure.IsOptimal;
         }
 
         private void buttonOK_Click(object sender, EventArgs e)

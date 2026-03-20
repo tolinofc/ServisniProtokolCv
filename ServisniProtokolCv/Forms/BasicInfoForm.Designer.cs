@@ -109,6 +109,7 @@
             Controls.Add(textBoxProtocolNumber);
             Controls.Add(labelProtocolNumber);
             Name = "BasicInfoForm";
+            StartPosition = FormStartPosition.CenterParent;
             Text = "BasicInfoForm";
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
