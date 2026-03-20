@@ -1,5 +1,6 @@
 using ServisniProtokolCv.Forms;
 using ServisniProtokolCv.Models;
+using ServisniProtokolCv.Services;
 using System.ComponentModel;
 
 namespace ServisniProtokolCv
@@ -65,12 +66,20 @@ namespace ServisniProtokolCv
 
         private void buttonEdit_Click(object sender, EventArgs e)
         {
-            Measure selectedMeasure = this.dataGridViewMeasure.CurrentRow != null ? this.measures[this.dataGridViewMeasure.CurrentRow.Index] : new Measure();
-            MeasureForm form = new MeasureForm(selectedMeasure);
-            if (form.ShowDialog() == DialogResult.OK)
+            if (this.dataGridViewMeasure.CurrentRow != null)
             {
-                selectedMeasure = form.measure;
-                this.dataGridViewMeasure.Invalidate();
+                Measure selectedMeasure = this.measures[this.dataGridViewMeasure.CurrentRow.Index];
+
+                MeasureForm form = new MeasureForm(selectedMeasure);
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    selectedMeasure = form.measure;
+                    this.dataGridViewMeasure.Invalidate();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Pro úpravu nejprve vyberte øádek");
             }
         }
 
@@ -78,9 +87,18 @@ namespace ServisniProtokolCv
         {
             if (this.dataGridViewMeasure.CurrentRow != null)
             {
-                this.measures.Remove(this.measures[this.dataGridViewMeasure.CurrentRow.Index]) ;
+                this.measures.Remove(this.measures[this.dataGridViewMeasure.CurrentRow.Index]);
             }
 
+        }
+
+        private void buttonExport_Click(object sender, EventArgs e)
+        {
+            using (StreamWriter writer = new StreamWriter("C:\\Users\\Tolin\\Desktop\\soubor.html"))
+            {
+                HTMLService html = new HTMLService(protocol);
+                writer.WriteLine(html.ExportHTML());
+            }
         }
     }
 }

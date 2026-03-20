@@ -380,6 +380,7 @@
             buttonExport.TabIndex = 3;
             buttonExport.Text = "Export";
             buttonExport.UseVisualStyleBackColor = true;
+            buttonExport.Click += buttonExport_Click;
             // 
             // buttonLoad
             // 
